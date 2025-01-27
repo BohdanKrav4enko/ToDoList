@@ -1,11 +1,13 @@
-import {Tasks} from "./layout/tasks/Tasks.tsx";
+import {Main} from "./layout/section/main/Main.tsx";
+import {Header} from "./layout/header/Header.tsx";
 
 export function App() {
-  return (
-    <>
-      <Tasks/>
-    </>
-  )
+    return (
+        <>
+            <Header/>
+            <Main/>
+        </>
+    )
 }
 
 

@@ -33,8 +33,19 @@ export const Tasks = () => {
 
     return (
         <>
-            <Task changeFilter={changeFilter} title="What to learn" tasks={taskForToDoList} removeTask={removeTask}/>
+            <Task changeFilter={changeFilter} title="What to learn" tasks={taskForToDoList}
+                  removeTask={removeTask}/>
+            <Task changeFilter={changeFilter} title="list of movies" tasks={taskForToDoList}
+                  removeTask={removeTask}/>
+            <Task changeFilter={changeFilter} title="What to buy" tasks={taskForToDoList}
+                  removeTask={removeTask}/>
+            <Task changeFilter={changeFilter} title="Working notes" tasks={taskForToDoList}
+                  removeTask={removeTask}/>
+            <Task changeFilter={changeFilter} title="Music" tasks={taskForToDoList}
+                  removeTask={removeTask}/>
         </>
+
+
     )
 };
 
