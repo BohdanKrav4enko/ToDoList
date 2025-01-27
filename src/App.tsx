@@ -1,12 +1,9 @@
-import {Notes} from "./components/Notes.tsx";
+import {Tasks} from "./layout/tasks/Tasks.tsx";
 
 export function App() {
-
   return (
     <>
-      <Notes/>
-      <Notes/>
-      <Notes/>
+      <Tasks/>
     </>
   )
 }
