@@ -8,7 +8,7 @@ import {
     TaskTitle,
     TaskTitleButton,
 } from "./TaskStyles.tsx";
-import {ButtonTask} from "../../../components/ButtonTask.tsx";
+import {ButtonTask} from "../../ButtonTask.tsx";
 import {ChangeEvent, KeyboardEvent, useState} from "react";
 
 type TaskType = {
