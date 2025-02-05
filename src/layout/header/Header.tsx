@@ -5,8 +5,8 @@ export const Header = () => {
         <StyledHeader>
             <h1>To Do List</h1>
             <StyledAuthLink>
-                <a href={'#'}>Вход</a>
-                <a href={'#'}>Регистрация</a>
+                <a href={'#'}>Login</a>
+                <a href={'#'}>Sign up</a>
             </StyledAuthLink>
         </StyledHeader>
     );
@@ -20,6 +20,7 @@ const StyledHeader = styled.header`
     background-color: rgba(0, 0, 189, 0.63);
     top: 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 100;
     h1{
         font-family: "Playwrite IN", serif;
         font-size: 24px;
@@ -48,7 +49,7 @@ const StyledAuthLink = styled.div`
         }
 
         &:active {
-            font-size: 22px;
+            transform: scale(1.1);
         }
     }
 `
