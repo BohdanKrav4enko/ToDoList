@@ -66,3 +66,8 @@ export const StyledErrorText = styled.p`
 export const StyledInput = styled.input<StyledInputType>`
      border-color: ${props => props.color};
 `
+export const StyledTitleContainer = styled.div`
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+`

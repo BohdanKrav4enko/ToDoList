@@ -5,7 +5,7 @@ import {
     StyledTaskFooter,
     StyledNotes,
     TaskTitle,
-    TaskTitleButton, StyledErrorText, StyledInputContainer, StyledInput, TaskItem,
+    TaskTitleButton, StyledErrorText, StyledInputContainer, StyledInput, TaskItem, StyledTitleContainer,
 } from "./TaskStyles.tsx";
 import {ButtonTask} from "../../ButtonTask.tsx";
 import {ChangeEvent, KeyboardEvent, useState} from "react";
@@ -18,13 +18,15 @@ type TaskType = {
 }
 
 type TaskPropsType = {
+    id: string;
     title: string;
     tasks: Array<TaskType>;
-    removeTask: (id: string) => void;
-    changeFilter: (value: FilterValuesType) => void;
-    addTask: (title: string) => void;
-    changeStatus: (taskId: string, isDone: boolean) => void;
+    removeTask: (id: string, todolistId: string) => void;
+    changeFilter: (value: FilterValuesType, todolistId: string) => void;
+    addTask: (title: string, todolistId: string) => void;
+    changeStatus: (taskId: string, isDone: boolean, todolistId: string) => void;
     filter: FilterValuesType;
+    removeTodolist: (todolistId: string) => void;
 }
 
 export const Task = (props: TaskPropsType) => {
@@ -46,19 +48,21 @@ export const Task = (props: TaskPropsType) => {
             setError(true)
             setNewTaskTitle('')
         } else {
-            props.addTask(newTaskTitle.trim());
+            props.addTask(newTaskTitle.trim(), props.id);
             setNewTaskTitle('');
         }
     }
-    const onAllCLickHandler = () => props.changeFilter('all')
-    const onActiveCLickHandler = () => props.changeFilter('active')
-    const onCompletedCLickHandler = () => props.changeFilter('completed')
-
-
+    const onAllCLickHandler = () => props.changeFilter('all', props.id)
+    const onActiveCLickHandler = () => props.changeFilter('active', props.id)
+    const onCompletedCLickHandler = () => props.changeFilter('completed', props.id)
+    const removeTodolist = () => props.removeTodolist(props.id);
     return (
         <StyledNotes>
             <TaskContainer>
-                <h1>{props.title}</h1>
+                <StyledTitleContainer>
+                    <h1>{props.title}</h1>
+                    <button onClick={removeTodolist}>X</button>
+                </StyledTitleContainer>
                 <StyledInputContainer>
                     <StyledInput color={error ? "red" : "black"} onKeyDown={onKeyDownHandler} placeholder={'Enter text'}
                                  value={newTaskTitle}
@@ -72,9 +76,9 @@ export const Task = (props: TaskPropsType) => {
                     <StyledList>
                         {props.tasks.map((t: TaskType, id: number) => {
                             const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                                props.changeStatus(t.id, e.currentTarget.checked)
+                                props.changeStatus(t.id, e.currentTarget.checked, props.id)
                             }
-                            const onClickHandler = () => props.removeTask(t.id)
+                            const onClickHandler = () => props.removeTask(t.id, props.id)
                             return <TaskTitle>
                                 <TaskItem opacity={t.isDone ? 0.5 : 1} key={id}>
                                     <input type={"checkbox"} onChange={onChangeHandler} checked={t.isDone}/>{t.title}
@@ -97,4 +101,5 @@ export const Task = (props: TaskPropsType) => {
         </StyledNotes>
     );
 };
+
 
