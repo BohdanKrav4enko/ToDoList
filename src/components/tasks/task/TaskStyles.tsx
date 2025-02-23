@@ -1,4 +1,12 @@
 import styled from "styled-components";
+
+type StyledInputType = {
+    color: string;
+}
+type StyledIsDoneProps = {
+    opacity: number;
+}
+
 export const StyledNotes = styled.div`
     border: 1px solid black;
     border-radius: 10px;
@@ -7,10 +15,7 @@ export const StyledNotes = styled.div`
     max-width: 200px;
     width: 100%;
 
-    li {
-        list-style: none;
-        margin: 10px 0;
-    }
+
 
     ul {
         padding: 0;
@@ -21,13 +26,18 @@ export const TaskContainer = styled.div`
     flex-direction: column;
 
 `
-export const StyledInput = styled.div`
+export const StyledInputContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0 10px;
 `
 export const StyledList = styled.ul`
+`
+export const TaskItem  = styled.li<StyledIsDoneProps>`
+    list-style: none;
+    margin: 10px 0;
+    opacity: ${props => (props.opacity)};
 
 `
 export const TaskTitle = styled.div`
@@ -49,4 +59,10 @@ export const StyledTaskFooter = styled.div`
     align-items: center;
     justify-content: space-between;
     gap: 0 10px;
+`
+export const StyledErrorText = styled.p`
+    color: red;
+`
+export const StyledInput = styled.input<StyledInputType>`
+     border-color: ${props => props.color};
 `
