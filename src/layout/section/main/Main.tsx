@@ -3,8 +3,10 @@ import {Container} from "../../../components/Container.tsx";
 import styled from "styled-components";
 
 export const Main = () => {
+
     return (
         <StyledContainer>
+
             <Tasks/>
         </StyledContainer>
     );
@@ -20,3 +22,4 @@ const StyledContainer = styled(Container)`
     flex-wrap: wrap;
     gap: 16px;
 `
+

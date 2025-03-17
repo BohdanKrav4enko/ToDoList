@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {EditableSpan} from "../../EditableSpan.tsx";
 
 type StyledInputType = {
     color: string;
@@ -70,4 +71,8 @@ export const StyledTitleContainer = styled.div`
     display: flex;
     align-items: start;
     justify-content: space-between;
+`
+export const StyledTitleEditableSpan = styled(EditableSpan)`
+    font-size: 30px;
+    margin-bottom: 20px;
 `
