@@ -1,18 +1,20 @@
 import {FilterValuesType} from "../Tasks.tsx";
 import {
-    StyledList,
+    StyledList, StyledNoNotesText,
     StyledNotes,
-    StyledTaskFooter,
-    StyledTitleContainer, StyledTitleEditableSpan,
+    StyledTaskFooter, StyledTaskIconButton,
+    StyledTitleContainer, StyledTitleEditableNotesSpan, StyledTitleEditableSpan, StyledTitleIconButton,
     TaskContainer,
     TaskItem,
     TaskTitle,
-    TaskTitleButton,
 } from "./TaskStyles.tsx";
 import {ButtonTask} from "../../ButtonTask.tsx";
 import {ChangeEvent} from "react";
 import {AddItemForm} from "../../AddItemForm.tsx";
-import {EditableSpan} from "../../EditableSpan.tsx";
+import {Checkbox, Paper} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+
 type TaskType = {
     id: string;
     title: string;
@@ -42,44 +44,52 @@ export const Task = (props: TaskPropsType) => {
 
     return (
         <StyledNotes>
-            <TaskContainer>
-                <StyledTitleContainer>
-                    <StyledTitleEditableSpan onChange={changeToDoListTitle}  title={props.title}/>
-                    <button onClick={removeTodolist}>X</button>
-                </StyledTitleContainer>
-                <AddItemForm addItem={addTask}/>
-                {props.tasks.length === 0 ? (
-                    <p>There are no notes here yet.</p>
-                ) : (
-                    <StyledList>
-                        {props.tasks.map((t: TaskType, id: number) => {
-                            const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                                props.changeStatus(t.id, e.currentTarget.checked, props.id)
-                            }
-                            const onChangeTitleHandler = (value: string) => {
-                                props.changeTaskTitle(t.id, value, props.id)
-                            }
-                            const onClickHandler = () => props.removeTask(t.id, props.id)
-                            return <TaskTitle>
-                                <TaskItem opacity={t.isDone ? 0.5 : 1} key={id}>
-                                    <input type={"checkbox"} onChange={onChangeStatusHandler} checked={t.isDone}/>
-                                    <EditableSpan onChange={onChangeTitleHandler} title={t.title}/>
-                                </TaskItem>
-                                <TaskTitleButton
-                                    onClick={onClickHandler}>x
-                                </TaskTitleButton>
-                            </TaskTitle>
-                        })}
-                    </StyledList>)}
-                <StyledTaskFooter>
-                    <ButtonTask backgroundColor={props.filter === 'all' ? "rgba(16, 73, 179, 0.63)" : "white"}
-                                onClick={onAllCLickHandler}>All</ButtonTask>
-                    <ButtonTask backgroundColor={props.filter === 'active' ? "rgba(16, 73, 179, 0.63)" : "white"}
-                                onClick={onActiveCLickHandler}>Active</ButtonTask>
-                    <ButtonTask backgroundColor={props.filter === 'completed' ? "rgba(16, 73, 179, 0.63)" : "white"}
-                                onClick={onCompletedCLickHandler}>Completed</ButtonTask>
-                </StyledTaskFooter>
-            </TaskContainer>
+            <Paper style={{padding: '30px', maxWidth: '376px', width: '100%'}} elevation={3}>
+                <TaskContainer>
+                    <StyledTitleContainer>
+                        <StyledTitleEditableSpan onChange={changeToDoListTitle} title={props.title}/>
+                        <StyledTitleIconButton onClick={removeTodolist} aria-label="delete" size="small">
+                            <DeleteIcon color={"primary"} fontSize="small"/>
+                        </StyledTitleIconButton>
+                    </StyledTitleContainer>
+                    <AddItemForm addItem={addTask}/>
+                    {props.tasks.length === 0 ? (
+                        <StyledNoNotesText>There are no notes here yet.</StyledNoNotesText>
+                    ) : (
+                        <StyledList>
+                            {props.tasks.map((t: TaskType, id: number) => {
+                                const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+                                    props.changeStatus(t.id, e.currentTarget.checked, props.id)
+                                }
+                                const onChangeTitleHandler = (value: string) => {
+                                    props.changeTaskTitle(t.id, value, props.id)
+                                }
+                                const onClickHandler = () => props.removeTask(t.id, props.id)
+                                return <TaskTitle>
+                                    <TaskItem key={id}>
+                                        <Checkbox onChange={onChangeStatusHandler} checked={t.isDone}/>
+                                        <div>
+                                            <StyledTitleEditableNotesSpan isDone={t.isDone}
+                                                                          onChange={onChangeTitleHandler}
+                                                                          title={t.title}/>
+                                        </div>
+                                    </TaskItem>
+                                    <StyledTaskIconButton onClick={onClickHandler} aria-label="delete" size="small">
+                                        <DeleteIcon color={"primary"} fontSize="small"/>
+                                    </StyledTaskIconButton>
+                                </TaskTitle>
+                            })}
+                        </StyledList>)}
+                    <StyledTaskFooter>
+                        <ButtonTask value={props.filter === 'all'}
+                                    onClick={onAllCLickHandler}>All</ButtonTask>
+                        <ButtonTask value={props.filter === 'active'}
+                                    onClick={onActiveCLickHandler}>Active</ButtonTask>
+                        <ButtonTask value={props.filter === 'completed'}
+                                    onClick={onCompletedCLickHandler}>Completed</ButtonTask>
+                    </StyledTaskFooter>
+                </TaskContainer>
+            </Paper>
         </StyledNotes>
     );
 };

@@ -1,4 +1,6 @@
 import {ChangeEvent, KeyboardEvent, useState} from "react";
+import TextField from "@mui/material/TextField";
+import {StyledItem} from "./tasks/task/TaskStyles.tsx";
 
 type EditableSpanPropsType = {
     title: string
@@ -7,8 +9,8 @@ type EditableSpanPropsType = {
 }
 export const EditableSpan = (props: EditableSpanPropsType) => {
 
+    const [title, setTitle] = useState(props.title);
     const [editMode, setEditMode] = useState(false)
-    const [title, setTitle] = useState('')
 
     const activateEditMode = () => {
         setEditMode(true)
@@ -16,7 +18,12 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
     }
     const activateViewMode = () => {
         setEditMode(false)
-        props.onChange(title)
+        if (title.trim().length > 0){
+            props.onChange(title.trim())
+        } else {
+            props.onChange(props.title)
+        }
+
     }
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
@@ -27,6 +34,8 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
     const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
 
     return editMode
-        ? <input onKeyDown={onKeyDownHandler} value={title} onChange={onChangeTitleHandler} onBlur={activateViewMode} autoFocus />
-        : <span onDoubleClick={activateEditMode} className={props.className}>{props.title}</span>
+        ? <TextField onKeyDown={onKeyDownHandler} value={title} onChange={onChangeTitleHandler}
+                   onBlur={activateViewMode} id="standard-basic" variant="standard" multiline maxRows={4} size="small" fullWidth autoFocus />
+        : <StyledItem onDoubleClick={activateEditMode} className={props.className}>{props.title}</StyledItem>
 }
+

@@ -5,15 +5,16 @@ import styled from "styled-components";
 export const Main = () => {
 
     return (
-        <StyledContainer>
-
-            <Tasks/>
-        </StyledContainer>
+        <>
+            <StyledContainer>
+                    <Tasks/>
+            </StyledContainer>
+        </>
     );
 };
 
 
-const StyledContainer = styled(Container)`
+export const StyledContainer = styled(Container)`
     margin-top: 100px;
     display: flex;
     align-items: flex-start;
@@ -21,5 +22,10 @@ const StyledContainer = styled(Container)`
     flex-direction: row;
     flex-wrap: wrap;
     gap: 16px;
+    
+    @media screen and (max-width: 797px) {
+        align-items: center;
+        justify-content: center;
+    }
 `
 

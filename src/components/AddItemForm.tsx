@@ -1,5 +1,8 @@
 import {ChangeEvent, KeyboardEvent, useState} from "react";
-import {StyledErrorText, StyledInput, StyledInputContainer} from "./tasks/task/TaskStyles.tsx";
+import {StyledInputContainer} from "./tasks/task/TaskStyles.tsx";
+import {IconButton} from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
+import TextField from '@mui/material/TextField';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void;
@@ -12,7 +15,8 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
 
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         setError(false)
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
             addTask()
         }
     }
@@ -29,11 +33,21 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
 
     return <>
         <StyledInputContainer>
-            <StyledInput color={error ? "red" : "black"} onKeyDown={onKeyDownHandler} placeholder={'Enter text'}
-                         value={newTaskTitle}
-                         onChange={onNewTitleChangeHandler} type="text"/>
-            <button onClick={addTask}>+</button>
+            <TextField
+                onKeyDown={onKeyDownHandler} placeholder={'Enter text'}
+                value={newTaskTitle}
+                onChange={onNewTitleChangeHandler}
+                id="outlined-multiline-flexible"
+                multiline
+                maxRows={4}
+                size="small"
+                error={error}
+                helperText={error && "Field is required"}
+                fullWidth
+            />
+            <IconButton style={{ transform: error ? 'translateY(-10px)' : 'translateY(0)'}} onClick={addTask} aria-label="delete" size="small">
+                <AddIcon color={error? "error" : "primary"} fontSize="small"/>
+            </IconButton>
         </StyledInputContainer>
-        {error && <StyledErrorText>Field is required</StyledErrorText>}
     </>
 }

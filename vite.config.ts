@@ -10,6 +10,7 @@ export default defineConfig({
       },
     }),
   ],
+  base: '/ToDoList/',
   resolve: {
     alias: {
       '@': '/src',

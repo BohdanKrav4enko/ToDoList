@@ -17,23 +17,39 @@ const StyledHeader = styled.header`
     justify-content: space-around;
     position: fixed;
     width: 100%;
+    height: 70px;
     background-color: rgba(0, 0, 189, 0.63);
     top: 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 100;
     h1{
+        margin-top: 20px;
         font-family: "Playwrite IN", serif;
         font-size: 24px;
+        margin-left: 100px;
         font-weight: 400;
         color: white;
+        @media screen and (max-width: 550px) {
+            margin-right: 20px;
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 550px) {
+        justify-content: flex-end;
+        font-size: 20px;
     }
 `
 const StyledAuthLink = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 190px;
+    flex-wrap: nowrap;
+    max-width: 160px;
     width: 100%;
+    @media screen and (max-width: 400px) {
+        max-width: 150px;
+    }
 
     a {
         margin: 0 10px;
@@ -50,6 +66,10 @@ const StyledAuthLink = styled.div`
 
         &:active {
             transform: scale(1.1);
+        }
+        @media screen and (max-width: 400px) {
+            font-size: 18px;
+            margin: 0 6px;
         }
     }
 `
