@@ -38,7 +38,6 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
                 value={newTaskTitle}
                 onChange={onNewTitleChangeHandler}
                 id="outlined-multiline-flexible"
-                label="Enter text"
                 multiline
                 maxRows={4}
                 size="small"

@@ -20,7 +20,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     a:visited {
-        color: inherit;
+        color: white;
     }
     ul {
         list-style: none;

@@ -18,7 +18,12 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
     }
     const activateViewMode = () => {
         setEditMode(false)
-        props.onChange(title.trim())
+        if (title.trim().length > 0){
+            props.onChange(title.trim())
+        } else {
+            props.onChange(props.title)
+        }
+
     }
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {

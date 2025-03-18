@@ -26,16 +26,30 @@ const StyledHeader = styled.header`
         margin-top: 20px;
         font-family: "Playwrite IN", serif;
         font-size: 24px;
+        margin-left: 100px;
         font-weight: 400;
         color: white;
+        @media screen and (max-width: 550px) {
+            margin-right: 20px;
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 550px) {
+        justify-content: flex-end;
+        font-size: 20px;
     }
 `
 const StyledAuthLink = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 190px;
+    flex-wrap: nowrap;
+    max-width: 160px;
     width: 100%;
+    @media screen and (max-width: 400px) {
+        max-width: 150px;
+    }
 
     a {
         margin: 0 10px;
@@ -52,6 +66,10 @@ const StyledAuthLink = styled.div`
 
         &:active {
             transform: scale(1.1);
+        }
+        @media screen and (max-width: 400px) {
+            font-size: 18px;
+            margin: 0 6px;
         }
     }
 `
