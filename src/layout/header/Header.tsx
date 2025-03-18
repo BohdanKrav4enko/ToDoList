@@ -17,11 +17,13 @@ const StyledHeader = styled.header`
     justify-content: space-around;
     position: fixed;
     width: 100%;
+    height: 70px;
     background-color: rgba(0, 0, 189, 0.63);
     top: 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 100;
     h1{
+        margin-top: 20px;
         font-family: "Playwrite IN", serif;
         font-size: 24px;
         font-weight: 400;

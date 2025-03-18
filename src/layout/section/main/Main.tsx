@@ -5,10 +5,11 @@ import styled from "styled-components";
 export const Main = () => {
 
     return (
+        <>
         <StyledContainer>
-
             <Tasks/>
         </StyledContainer>
+        </>
     );
 };
 

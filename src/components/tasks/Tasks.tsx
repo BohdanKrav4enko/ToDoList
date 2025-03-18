@@ -13,10 +13,12 @@ type TodolistType = {
 export const Tasks = () => {
         let todolistId1 = uuidv4()
         let todolistId2 = uuidv4()
+        let todolistId3 = uuidv4()
 
         let [todolists, setTodolists] = useState<Array<TodolistType>>([
             {id: todolistId1, title: 'What to learn', filter: "all"},
             {id: todolistId2, title: 'What to buy', filter: "all"},
+            {id: todolistId3, title: 'Shopping List', filter: "all"}
         ])
 
         let [tasksObj, setTasksObj] = useState({
@@ -31,6 +33,14 @@ export const Tasks = () => {
                 {id: uuidv4(), title: 'Snickers', isDone: false},
                 {id: uuidv4(), title: 'Book', isDone: true},
                 {id: uuidv4(), title: 'Brad', isDone: true},
+            ],
+            [todolistId3]: [
+                { id: uuidv4(), title: 'Apple', isDone: false },
+                { id: uuidv4(), title: 'Notebook', isDone: true },
+                { id: uuidv4(), title: 'Juice', isDone: false },
+                { id: uuidv4(), title: 'Headphones', isDone: true },
+                { id: uuidv4(), title: 'Backpack', isDone: false },
+                { id: uuidv4(), title: 'Pen', isDone: true }
             ]
         });
 

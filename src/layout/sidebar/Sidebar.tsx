@@ -30,7 +30,7 @@ img{
 const StyledSidebar = styled.div`
     position: fixed;
     padding: 16px;
-    top: 80px;
+    top: 70px;
     left: 0;
     bottom: 0;
     display: flex;
