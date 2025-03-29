@@ -27,7 +27,7 @@ type TaskPropsType = {
     removeTask: (id: string, todolistId: string) => void;
     changeFilter: (value: FilterValuesType, todolistId: string) => void;
     addTask: (title: string, todolistId: string) => void;
-    changeStatus: (taskId: string, isDone: boolean, todolistId: string) => void;
+    changeStatus: (taskId: string, todolistId: string, isDone: boolean) => void;
     changeTaskTitle: (taskId: string, title: string, todolistId: string) => void;
     filter: FilterValuesType;
     removeTodolist: (todolistId: string) => void;
@@ -41,7 +41,6 @@ export const Task = (props: TaskPropsType) => {
     const removeTodolist = () => props.removeTodolist(props.id);
     const addTask = (title: string) => props.addTask(title, props.id)
     const changeToDoListTitle = (title: string) => props.changeToDoListTitle(title, props.id);
-
     return (
         <StyledNotes>
             <Paper style={{padding: '30px', maxWidth: '376px', width: '100%'}} elevation={3}>
@@ -59,7 +58,7 @@ export const Task = (props: TaskPropsType) => {
                         <StyledList>
                             {props.tasks.map((t: TaskType, id: number) => {
                                 const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                                    props.changeStatus(t.id, e.currentTarget.checked, props.id)
+                                    props.changeStatus(t.id, props.id, e.currentTarget.checked)
                                 }
                                 const onChangeTitleHandler = (value: string) => {
                                     props.changeTaskTitle(t.id, value, props.id)
