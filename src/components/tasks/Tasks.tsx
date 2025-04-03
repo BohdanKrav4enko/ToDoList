@@ -1,12 +1,9 @@
 import {Task} from "./task/Task.tsx";
-import {useReducer} from "react";
-import {v4 as uuidv4} from 'uuid';
 import {AddItemForm} from "../AddItemForm.tsx";
 import {
     createTodolistAC,
     changeFilterTodolistAC,
-    changeTitleTodolistAC,
-    todolistsReducer, deleteTodolistAC
+    changeTitleTodolistAC, deleteTodolistAC
 } from "./model/todolists-reducer.ts";
 import {
     addTaskAC,
@@ -14,8 +11,11 @@ import {
     changeTaskStatusAC,
     changeTitleTaskAC,
     removeTaskAC,
-    tasksReducer
 } from "./model/tasks-reducer.ts";
+import {RootState} from "./model/store.ts";
+import {useAppDispatch} from "./common/hooks/useAppDispatch.ts";
+import {useAppSelector} from "./common/hooks/useAppSelector.ts";
+import {nanoid} from "@reduxjs/toolkit";
 
 export type FilterValuesType = "all" | "completed" | "active"
 
@@ -29,73 +29,42 @@ export type TasksType = {
     title: string,
     isDone: boolean
 }
-
 export type TasksStateType = {
     [key: string]: TasksType[];
 };
 export const Tasks = () => {
-        const todolistId1 = uuidv4()
-        const todolistId2 = uuidv4()
-        const todolistId3 = uuidv4()
 
-        const [todolists, dispatchTodolists] = useReducer(todolistsReducer,
-            [{id: todolistId1, title: 'What to learn', filter: "all"},
-                {id: todolistId2, title: 'What to buy', filter: "all"},
-                {id: todolistId3, title: 'Shopping List', filter: "all"}],
-        )
+        const dispatch = useAppDispatch();
 
-        const [tasks, dispatchTask] = useReducer(tasksReducer,
-            {
-                [todolistId1]: [
-                    {id: uuidv4(), title: 'CSS', isDone: true},
-                    {id: uuidv4(), title: 'HTML', isDone: false},
-                    {id: uuidv4(), title: 'JS', isDone: false},
-                    {id: uuidv4(), title: 'Redux', isDone: false},
-                ],
-                [todolistId2]: [
-                    {id: uuidv4(), title: 'Milk', isDone: true},
-                    {id: uuidv4(), title: 'Snickers', isDone: false},
-                    {id: uuidv4(), title: 'Book', isDone: true},
-                    {id: uuidv4(), title: 'Brad', isDone: true},
-                ],
-                [todolistId3]: [
-                    {id: uuidv4(), title: 'Apple', isDone: false},
-                    {id: uuidv4(), title: 'Notebook', isDone: true},
-                    {id: uuidv4(), title: 'Juice', isDone: false},
-                    {id: uuidv4(), title: 'Headphones', isDone: true},
-                    {id: uuidv4(), title: 'Backpack', isDone: false},
-                    {id: uuidv4(), title: 'Pen', isDone: true}
-                ]
-            })
+        const todolists = useAppSelector<RootState, TodolistType[]>(state => state.todolists)
+        const tasks = useAppSelector<RootState, TasksStateType>(state => state.tasks)
 
 
         const addTask = (title: string, todolistId: string) => {
-            dispatchTask(addTaskAC(todolistId, title))
+            dispatch(addTaskAC({todolistId, title}))
         }
         const removeTask = (id: string, todolistId: string) => {
-            dispatchTask(removeTaskAC(id, todolistId))
+            dispatch(removeTaskAC({id, todolistId}))
         }
         const changeTaskTitle = (taskId: string, title: string, todolistId: string) => {
-            dispatchTask(changeTitleTaskAC(todolistId, title, taskId))
+            dispatch(changeTitleTaskAC({todolistId, title,id: taskId}))
         }
         const changeStatus = (taskId: string, todolistId: string, isDone: boolean) => {
-            dispatchTask(changeTaskStatusAC(todolistId, taskId, isDone))
+            dispatch(changeTaskStatusAC({todolistId, id: taskId, isDone}))
         }
-
-
         const changeToDoListTitle = (title: string, id: string) => {
-            dispatchTodolists(changeTitleTodolistAC(title, id))
+            dispatch(changeTitleTodolistAC({title, id}))
         }
         const changeFilter = (value: FilterValuesType, todolistId: string) => {
-            dispatchTodolists(changeFilterTodolistAC(value, todolistId))
+            dispatch(changeFilterTodolistAC({filter: value, id: todolistId}))
         }
         const removeTodolist = (todolistId: string) => {
-            dispatchTodolists(deleteTodolistAC(todolistId))
+            dispatch(deleteTodolistAC({id: todolistId}))
         }
         const addTodoList = (title: string) => {
-            const newId = uuidv4()
-            dispatchTodolists(createTodolistAC(newId, title))
-            dispatchTask(addToodolistAC(newId, title));
+            const newId = nanoid()
+            dispatch(createTodolistAC(newId, title))
+            dispatch(addToodolistAC({todolistId: newId, title}));
         }
 
 
