@@ -5,8 +5,8 @@ import {
     changeTitleTaskAC,
     removeTaskAC,
     tasksReducer
-} from './tasks-reducer.ts';
-import { TasksStateType } from '../Tasks.tsx';
+} from '../tasks-reducer.ts';
+import { TasksStateType } from '../../Tasks.tsx';
 
 let startState: TasksStateType = {};
 

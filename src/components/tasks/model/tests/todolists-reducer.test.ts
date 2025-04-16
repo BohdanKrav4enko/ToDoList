@@ -1,12 +1,12 @@
 import {v1} from 'uuid'
 import { expect, test } from 'vitest'
-import {FilterValuesType, TodolistType} from "../Tasks.tsx";
+import {FilterValuesType, TodolistType} from "../../Tasks.tsx";
 import {
     createTodolistAC, changeFilterTodolistAC,
     changeTitleTodolistAC,
     deleteTodolistAC,
     todolistsReducer
-} from './todolists-reducer'
+} from '../todolists-reducer.ts'
 
 test('correct todolist should be deleted', () => {
     const todolistId1 = v1()

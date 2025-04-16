@@ -1,34 +1,190 @@
-import {TasksStateType} from "../Tasks.tsx";
 import {todolistId1, todolistId2, todolistId3} from "./todolists-reducer.ts";
 import {createAction, createReducer, nanoid} from "@reduxjs/toolkit";
+import {TaskPriority, TaskStatus, TaskType} from "@/api/todolists-api.ts";
 
-export const removeToodolistAC = createAction<{todolistId: string}>('REMOVE_TODOLIST')
-export const addToodolistAC = createAction<{todolistId: string, title: string}>('ADD_TODOLIST')
-export const addTaskAC = createAction<{todolistId: string, title: string}>('ADD_TASK')
-export const removeTaskAC = createAction<{id: string, todolistId: string}>('REMOVE_TASK')
-export const changeTitleTaskAC = createAction<{todolistId: string, title: string, id: string}>('CHANGE_TASK_TITLE')
-export const changeTaskStatusAC = createAction<{todolistId: string, id: string, isDone: boolean}>('CHANGE_TASK_STATUS')
+export const removeToodolistAC = createAction<{ todolistId: string }>('REMOVE_TODOLIST')
+export const addToodolistAC = createAction<{ todolistId: string, title: string }>('ADD_TODOLIST')
+export const addTaskAC = createAction<{ todolistId: string, title: string }>('ADD_TASK')
+export const removeTaskAC = createAction<{ id: string, todolistId: string }>('REMOVE_TASK')
+export const changeTitleTaskAC = createAction<{ todolistId: string, title: string, id: string }>('CHANGE_TASK_TITLE')
+export const changeTaskStatusAC = createAction<{ todolistId: string, id: string, status: TaskStatus }>('CHANGE_TASK_STATUS')
+
+export type TasksStateType = { [key: string]: TaskType[]; };
 
 const initialState: TasksStateType = {
     [todolistId1]: [
-        {id: nanoid(), title: 'CSS', isDone: true},
-        {id: nanoid(), title: 'HTML', isDone: false},
-        {id: nanoid(), title: 'JS', isDone: false},
-        {id: nanoid(), title: 'Redux', isDone: false},
+        {
+            id: nanoid(),
+            title: 'CSS',
+            status: TaskStatus.Complete,
+            todoListId: todolistId1,
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+            order: 0,
+            priority: TaskPriority.Low,
+            description: ''
+        },
+        {
+            id: nanoid(),
+            title: 'HTML',
+            status: TaskStatus.Complete,
+            todoListId: todolistId1,
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+            order: 0,
+            priority: TaskPriority.Low,
+            description: ''
+        },
+        {
+            id: nanoid(),
+            title: 'JS',
+            status: TaskStatus.Complete,
+            todoListId: todolistId1,
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+            order: 0,
+            priority: TaskPriority.Low,
+            description: ''
+        },
+        {
+            id: nanoid(),
+            title: 'Redux',
+            status: TaskStatus.New,
+            todoListId: todolistId1,
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+            order: 0,
+            priority: TaskPriority.Low,
+            description: ''
+        },
     ],
     [todolistId2]: [
-        {id: nanoid(), title: 'Milk', isDone: true},
-        {id: nanoid(), title: 'Snickers', isDone: false},
-        {id: nanoid(), title: 'Book', isDone: true},
-        {id: nanoid(), title: 'Brad', isDone: true},
+        {
+            id: nanoid(),
+            title: 'Milk',
+            status: TaskStatus.New,
+            todoListId: todolistId2,
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+            order: 0,
+            priority: TaskPriority.Low,
+            description: ''
+        },
+        {
+            id: nanoid(),
+            title: 'Snickers',
+            status: TaskStatus.New,
+            todoListId: todolistId2,
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+            order: 0,
+            priority: TaskPriority.Low,
+            description: ''
+        },
+        {
+            id: nanoid(),
+            title: 'Book',
+            status: TaskStatus.Complete,
+            todoListId: todolistId2,
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+            order: 0,
+            priority: TaskPriority.Low,
+            description: ''
+        },
+        {
+            id: nanoid(),
+            title: 'Bread',
+            status: TaskStatus.Complete,
+            todoListId: todolistId2,
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+            order: 0,
+            priority: TaskPriority.Low,
+            description: ''
+        },
     ],
     [todolistId3]: [
-        {id: nanoid(), title: 'Apple', isDone: false},
-        {id: nanoid(), title: 'Notebook', isDone: true},
-        {id: nanoid(), title: 'Juice', isDone: false},
-        {id: nanoid(), title: 'Headphones', isDone: true},
-        {id: nanoid(), title: 'Backpack', isDone: false},
-        {id: nanoid(), title: 'Pen', isDone: true}
+        {
+            id: nanoid(),
+            title: 'Apple',
+            status: TaskStatus.New,
+            todoListId: todolistId3,
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+            order: 0,
+            priority: TaskPriority.Low,
+            description: ''
+        },
+        {
+            id: nanoid(),
+            title: 'Notebook',
+            status: TaskStatus.Complete,
+            todoListId: todolistId3,
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+            order: 0,
+            priority: TaskPriority.Low,
+            description: ''
+        },
+        {
+            id: nanoid(),
+            title: 'Juice',
+            status: TaskStatus.New,
+            todoListId: todolistId3,
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+            order: 0,
+            priority: TaskPriority.Low,
+            description: ''
+        },
+        {
+            id: nanoid(),
+            title: 'Headphones',
+            status: TaskStatus.New,
+            todoListId: todolistId3,
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+            order: 0,
+            priority: TaskPriority.Low,
+            description: ''
+        },
+        {
+            id: nanoid(),
+            title: 'Backpack',
+            status: TaskStatus.Complete,
+            todoListId: todolistId3,
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+            order: 0,
+            priority: TaskPriority.Low,
+            description: ''
+        },
+        {
+            id: nanoid(),
+            title: 'Pen',
+            status: TaskStatus.New,
+            todoListId: todolistId3,
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+            order: 0,
+            priority: TaskPriority.Low,
+            description: ''
+        }
     ]
 }
 export const tasksReducer = createReducer(initialState, builder => {
@@ -40,18 +196,25 @@ export const tasksReducer = createReducer(initialState, builder => {
             delete state[action.payload.todolistId]
         })
         .addCase(addTaskAC, (state, action) => {
-            const { todolistId, title } = action.payload;
+            const {todolistId, title} = action.payload;
             if (!state[todolistId]) {
                 state[todolistId] = [];
             }
             state[todolistId].unshift({
                 id: nanoid(),
                 title,
-                isDone: false
+                status: TaskStatus.New,
+                todoListId: todolistId,
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriority.Low,
+                description: ''
             });
         })
         .addCase(removeTaskAC, (state, action) => {
-            const { todolistId, id } = action.payload;
+            const {todolistId, id} = action.payload;
             if (state[todolistId]) {
                 const index = state[todolistId].findIndex(task => task.id === id);
                 if (index !== -1) {
@@ -60,7 +223,7 @@ export const tasksReducer = createReducer(initialState, builder => {
             }
         })
         .addCase(changeTitleTaskAC, (state, action) => {
-            const { todolistId, title, id } = action.payload;
+            const {todolistId, title, id} = action.payload;
             if (state[todolistId]) {
                 const task = state[todolistId].find(task => task.id === id);
                 if (task) {
@@ -69,11 +232,11 @@ export const tasksReducer = createReducer(initialState, builder => {
             }
         })
         .addCase(changeTaskStatusAC, (state, action) => {
-            const { todolistId, id, isDone } = action.payload;
+            const {todolistId, id, status} = action.payload;
             if (state[todolistId]) {
                 const task = state[todolistId].find(task => task.id === id);
                 if (task) {
-                    task.isDone = isDone;
+                    task.status = status;
                 }
             }
         })

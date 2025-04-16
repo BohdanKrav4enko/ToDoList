@@ -3,18 +3,21 @@ import {StyledInputContainer} from "./tasks/task/TaskStyles.tsx";
 import {IconButton} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import TextField from '@mui/material/TextField';
+import React from 'react';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void;
 }
 
-export const AddItemForm = (props: AddItemFormPropsType) => {
+export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
 
     const [newTaskTitle, setNewTaskTitle] = useState('')
     const [error, setError] = useState(false)
 
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(false)
+        if (error !== false) {
+            setError(false)
+        }
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             addTask()
@@ -45,9 +48,10 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
                 helperText={error && "Field is required"}
                 fullWidth
             />
-            <IconButton style={{ transform: error ? 'translateY(-10px)' : 'translateY(0)'}} onClick={addTask} aria-label="delete" size="small">
-                <AddIcon color={error? "error" : "primary"} fontSize="small"/>
+            <IconButton style={{transform: error ? 'translateY(-10px)' : 'translateY(0)'}} onClick={addTask}
+                        aria-label="delete" size="small">
+                <AddIcon color={error ? "error" : "primary"} fontSize="small"/>
             </IconButton>
         </StyledInputContainer>
     </>
-}
+})

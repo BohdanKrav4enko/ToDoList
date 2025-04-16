@@ -1,31 +1,38 @@
 import styled from "styled-components";
 import Photo from '../../assets/user.png'
 import {useState} from "react";
+import {useAppSelector} from "@/components/tasks/common/hooks/useAppSelector.ts";
+import {selectThemeMode} from "@/store/app-selectors.ts";
+
+type SidebarProps = {
+    themeMode: 'light' | 'dark'
+    isOpen: boolean
+}
 
 export const Sidebar = () => {
-
+    const themeMode = useAppSelector(selectThemeMode)
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     return (<>
-            <StyledBurgerButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}>
+            <StyledBurgerButton themeMode={themeMode} isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}>
                 <span></span>
             </StyledBurgerButton>
             {isOpen && <Overlay onClick={() => setIsOpen(false)}/>}
-            <StyledSidebar isOpen={isOpen}>
+            <StyledSidebar themeMode={themeMode} isOpen={isOpen}>
                 <UserItem>
                     <img src={Photo} alt="User photo"/>
                     <p>Ivan Ivanov</p>
                 </UserItem>
                 <ContainerRegisterUsers>
-                    <StyledSidebarButton>Login</StyledSidebarButton>
-                    <StyledSidebarButton>Sign up</StyledSidebarButton>
+                    <StyledSidebarButton themeMode={themeMode}>Login</StyledSidebarButton>
+                    <StyledSidebarButton themeMode={themeMode}>Sign up</StyledSidebarButton>
                 </ContainerRegisterUsers>
                 <ButtonItem>
-                    <StyledSidebarButton>Search</StyledSidebarButton>
-                    <StyledSidebarButton>Calendar</StyledSidebarButton>
-                    <StyledSidebarButton>Today</StyledSidebarButton>
-                    <StyledSidebarButton>Upcoming</StyledSidebarButton>
-                    <StyledSidebarButton>Filters and tags</StyledSidebarButton>
+                    <StyledSidebarButton themeMode={themeMode}>Search</StyledSidebarButton>
+                    <StyledSidebarButton themeMode={themeMode}>Calendar</StyledSidebarButton>
+                    <StyledSidebarButton themeMode={themeMode}>Today</StyledSidebarButton>
+                    <StyledSidebarButton themeMode={themeMode}>Upcoming</StyledSidebarButton>
+                    <StyledSidebarButton themeMode={themeMode}>Filters and tags</StyledSidebarButton>
                 </ButtonItem>
                 <FooterContainer>
                     <span>F.A.Q.</span>
@@ -57,7 +64,7 @@ export const UserItem = styled.div`
         height: 30px;
     }
 `
-export const StyledSidebar = styled.div<{ isOpen: boolean }>`
+export const StyledSidebar = styled.div<SidebarProps & { themeMode: 'light' | 'dark' }>`
     position: fixed;
     z-index: 1000;
     padding: 16px;
@@ -67,18 +74,18 @@ export const StyledSidebar = styled.div<{ isOpen: boolean }>`
     flex-direction: column;
     max-width: 260px;
     width: 100%;
-    background-color: rgb(248, 246, 246);
-    transform: translateX(${({isOpen}) => (isOpen ? '0' : '-100%')});
-    transition: transform 0.3s ease-in-out;
+    background-color: ${({ themeMode }) => themeMode === 'dark' ? '#1f1f1f' : 'rgb(248, 246, 246)'};
+    transform: translateX(${({ isOpen }) => (isOpen ? '0' : '-100%')});
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
     box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
-`
+`;
 export const ButtonItem = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
 `
-export const StyledSidebarButton = styled.button`
-    background-color: #f0f0f0;
+export const StyledSidebarButton = styled.button<{ themeMode: 'light' | 'dark' }>`
+    background-color: ${({ themeMode }) => themeMode === 'dark' ? '#2c2c2c' : '#f0f0f0'};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -88,7 +95,7 @@ export const StyledSidebarButton = styled.button`
     border-radius: 3px;
     font-size: 14px;
     font-weight: 600;
-    color: black;
+    color: ${({ themeMode }) => themeMode === 'dark' ? '#ffffff' : 'black'};
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
 
     &:active {
@@ -103,9 +110,9 @@ export const StyledSidebarButton = styled.button`
         box-shadow: 0 2px 5px rgba(0, 102, 204, 0.3);
         color: white;
     }
+`;
 
-`
-export const StyledBurgerButton = styled.button<{ isOpen: boolean }>`
+export const StyledBurgerButton = styled.button<SidebarProps>`
     height: 40px;
     width: 40px;
     background-color: inherit;
@@ -125,7 +132,10 @@ export const StyledBurgerButton = styled.button<{ isOpen: boolean }>`
         position: absolute;
         width: 24px;
         height: 3px;
-        background-color: ${({isOpen}) => isOpen ? 'black' : '#ffffff'};
+        background-color: ${({ isOpen, themeMode }) =>
+                isOpen
+                        ? themeMode === 'light' ? 'black' : '#ffffff'
+                        : '#ffffff'};
         transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
 
@@ -140,7 +150,7 @@ export const StyledBurgerButton = styled.button<{ isOpen: boolean }>`
     span {
         width: 24px;
         height: 3px;
-        background-color: ${({isOpen}) => isOpen ? 'black' : '#ffffff'};
+        background-color: ${({isOpen}) => isOpen? 'black' : '#ffffff'};
         transition: opacity 0.3s ease-in-out;
         opacity: ${({isOpen}) => (isOpen ? 0 : 1)};
     }

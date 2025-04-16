@@ -1,24 +1,33 @@
 import styled from "styled-components";
+import {useAppSelector} from "@/components/tasks/common/hooks/useAppSelector.ts";
+import {selectThemeMode} from "@/store/app-selectors.ts";
+import {MaterialUISwitch} from "@/components/MaterialUISwitch.tsx";
 
-export const Header = () => {
+type HeaderProps = {
+    changeMode: () => void
+}
+
+export const Header = (props: HeaderProps) => {
+    const themeMode = useAppSelector(selectThemeMode)
     return (
-        <StyledHeader>
+        <StyledHeader themeMode={themeMode}>
             <h1>To Do List</h1>
             <StyledAuthLink>
                 <a href={'#'}>Login</a>
                 <a href={'#'}>Sign up</a>
+                <MaterialUISwitch color={'default'} onChange={props.changeMode} />
             </StyledAuthLink>
         </StyledHeader>
     );
 };
 
-const StyledHeader = styled.header`
+const StyledHeader = styled.header<{ themeMode: 'light' | 'dark' }>`
     display: flex;
     justify-content: space-around;
     position: fixed;
     width: 100%;
     height: 70px;
-    background-color: rgba(0, 0, 189, 0.63);
+    background-color: ${props =>  props.themeMode === 'dark' ? '#333333' : 'rgba(0, 0, 189, 0.63)'};
     top: 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 100;
@@ -29,6 +38,7 @@ const StyledHeader = styled.header`
         margin-left: 100px;
         font-weight: 400;
         color: white;
+        cursor: default;
         @media screen and (max-width: 550px) {
             margin-right: 20px;
             margin-left: 0;
@@ -45,7 +55,7 @@ const StyledAuthLink = styled.div`
     align-items: center;
     justify-content: center;
     flex-wrap: nowrap;
-    max-width: 160px;
+    max-width: 220px;
     width: 100%;
     @media screen and (max-width: 400px) {
         max-width: 150px;

@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import * as path from "node:path";
 
 
 export default defineConfig({
@@ -10,10 +11,11 @@ export default defineConfig({
       },
     }),
   ],
+
   base: '/ToDoList/',
   resolve: {
     alias: {
-      '@': '/src',
+      '@/': `${path.resolve(__dirname, 'src')}/`,
     },
   },
 });
