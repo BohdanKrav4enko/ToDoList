@@ -1,15 +1,13 @@
-import {createRoot} from 'react-dom/client'
-import {App} from "./App.tsx";
-import './styled.css';
-import {GlobalStyle} from "./style/GlobalStyle.tsx";
-import {Provider} from "react-redux";
-import {store} from "./components/tasks/model/store.ts";
+import { createRoot } from "react-dom/client"
+import "./styled.css"
+import { Provider } from "react-redux"
+import { store } from "./store/store.ts"
+import { App } from "@/app/App.tsx"
 
-createRoot(document.getElementById('root')!).render(
-    <>
-        <GlobalStyle/>
-        <Provider store={store}>
-        <App/>
-        </Provider>
-    </>
+createRoot(document.getElementById("root")!).render(
+  <>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </>,
 )
