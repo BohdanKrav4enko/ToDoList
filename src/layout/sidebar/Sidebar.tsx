@@ -1,8 +1,8 @@
 import styled from "styled-components"
 import Photo from "../../assets/user.png"
 import { useState } from "react"
-import { useAppSelector } from "@/components/tasks/common/hooks/useAppSelector.ts"
-import { selectThemeMode } from "@/store/app-selectors.ts"
+import { useAppSelector } from "@/common/hooks/useAppSelector.ts"
+import { selectThemeMode } from "@/store/app-slice.ts"
 
 type SidebarProps = {
   themeMode: "light" | "dark"

@@ -1,12 +1,12 @@
-import { Tasks } from "@/components/tasks/Tasks.tsx"
-import { Container } from "@/components/Container.tsx"
+import { Todolists } from "@/components/tasks/Todolists.tsx"
+import { Container } from "@/components/container/Container.tsx"
 import styled from "styled-components"
 
 export const Main = () => {
   return (
     <>
       <StyledContainer>
-        <Tasks />
+        <Todolists />
       </StyledContainer>
     </>
   )
